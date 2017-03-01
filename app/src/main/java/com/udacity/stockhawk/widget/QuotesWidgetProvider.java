@@ -3,11 +3,13 @@ package com.udacity.stockhawk.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.udacity.stockhawk.R;
 
-public class QuotesInfoWidgetProvider extends AppWidgetProvider {
+public class QuotesWidgetProvider extends AppWidgetProvider {
     /**
      * Called in response to the {@link AppWidgetManager#ACTION_APPWIDGET_UPDATE} and
      * {@link AppWidgetManager#ACTION_APPWIDGET_RESTORED} broadcasts when this AppWidget
@@ -28,9 +30,13 @@ public class QuotesInfoWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_quotes_small);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_quotes);
 
-            // do yor update work here
+            Intent serviceIntent = new Intent(context, QuotesWidgetService.class);
+            serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            serviceIntent.setData(Uri.parse(serviceIntent.toUri(Intent.URI_INTENT_SCHEME)));
+            views.setRemoteAdapter(R.id.widget_list, serviceIntent);
+            views.setEmptyView(R.id.widget_list,R.id.widget_empty_view);
 
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }
