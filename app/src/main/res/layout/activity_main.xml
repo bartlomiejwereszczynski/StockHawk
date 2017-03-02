@@ -35,6 +35,30 @@
         app:fabSize="normal"
         app:pressedTranslationZ="12dp" />
 
+    <LinearLayout
+        android:id="@+id/hidden_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/medium_text_size"
+            android:textStyle="italic"
+            android:text="@string/default_loading_text"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            style="@style/Widget.AppCompat.ProgressBar"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/error"
         android:layout_width="wrap_content"

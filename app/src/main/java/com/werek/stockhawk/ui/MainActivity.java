@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+    @SuppressWarnings("WeakerAccess")
+    @BindView(R.id.hidden_layout)
+    LinearLayout hiddenLayout;
 
     @Override
     public void onClick(String symbol) {
@@ -147,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         if (data.getCount() != 0) {
             error.setVisibility(View.GONE);
+            hiddenLayout.setVisibility(View.GONE);
         }
         adapter.setCursor(data);
     }
