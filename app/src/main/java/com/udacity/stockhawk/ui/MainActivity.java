@@ -23,6 +23,7 @@ import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
+import com.udacity.stockhawk.util.StockUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
                 PrefUtils.removeStock(MainActivity.this, symbol);
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+                StockUtil.notifyWidgets(MainActivity.this);
             }
         }).attachToRecyclerView(stockRecyclerView);
 

@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
+import com.udacity.stockhawk.util.StockUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -112,6 +113,9 @@ public final class QuoteSyncJob {
 
             Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
             context.sendBroadcast(dataUpdatedIntent);
+
+            // notifying widgets
+            StockUtil.notifyWidgets(context);
 
         } catch (IOException exception) {
             Timber.e(exception, "Error fetching stock quotes");
