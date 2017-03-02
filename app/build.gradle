@@ -10,6 +10,11 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
+    dexOptions {
+        maxProcessCount 2
+        javaMaxHeapSize "3g"
+    }
+
     defaultConfig {
         applicationId "com.werek.stockhawk"
         minSdkVersion 21
