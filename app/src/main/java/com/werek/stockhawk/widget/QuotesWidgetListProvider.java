@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.widget;
+package com.werek.stockhawk.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -6,11 +6,11 @@ import android.database.Cursor;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.data.StockItem;
-import com.udacity.stockhawk.util.StockUtil;
+import com.werek.stockhawk.R;
+import com.werek.stockhawk.data.Contract;
+import com.werek.stockhawk.data.PrefUtils;
+import com.werek.stockhawk.data.StockItem;
+import com.werek.stockhawk.util.StockUtil;
 
 import java.util.ArrayList;
 

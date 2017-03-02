@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.ui;
+package com.werek.stockhawk.ui;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -19,11 +19,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
-import com.udacity.stockhawk.sync.QuoteSyncJob;
-import com.udacity.stockhawk.util.StockUtil;
+import com.werek.stockhawk.R;
+import com.werek.stockhawk.data.Contract;
+import com.werek.stockhawk.data.PrefUtils;
+import com.werek.stockhawk.sync.QuoteSyncJob;
+import com.werek.stockhawk.util.StockUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

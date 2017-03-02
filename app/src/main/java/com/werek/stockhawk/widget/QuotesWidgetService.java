@@ -1,11 +1,7 @@
-package com.udacity.stockhawk.widget;
+package com.werek.stockhawk.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;
-
-/**
- * Created by werek on 01.03.2017.
- */
 
 public class QuotesWidgetService extends RemoteViewsService {
     /**

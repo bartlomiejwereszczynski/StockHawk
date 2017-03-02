@@ -1,8 +1,4 @@
-package com.udacity.stockhawk.data;
-
-/**
- * Created by werek on 01.03.2017.
- */
+package com.werek.stockhawk.data;
 
 public class StockItem {
     public String symbol;

@@ -1,14 +1,14 @@
-package com.udacity.stockhawk.util;
+package com.werek.stockhawk.util;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.StockItem;
-import com.udacity.stockhawk.widget.QuotesWidgetProvider;
+import com.werek.stockhawk.R;
+import com.werek.stockhawk.data.Contract;
+import com.werek.stockhawk.data.StockItem;
+import com.werek.stockhawk.widget.QuotesWidgetProvider;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

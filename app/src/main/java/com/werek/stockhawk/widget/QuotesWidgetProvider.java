@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.widget;
+package com.werek.stockhawk.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.udacity.stockhawk.R;
-import com.udacity.stockhawk.sync.QuoteIntentService;
+import com.werek.stockhawk.R;
+import com.werek.stockhawk.sync.QuoteIntentService;
 
 public class QuotesWidgetProvider extends AppWidgetProvider {
     /**
