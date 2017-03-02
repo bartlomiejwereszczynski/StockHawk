@@ -1,4 +1,4 @@
-package com.udacity.stockhawk.sync;
+package com.werek.stockhawk.sync;
 
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -9,8 +9,9 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.udacity.stockhawk.data.Contract;
-import com.udacity.stockhawk.data.PrefUtils;
+import com.werek.stockhawk.data.Contract;
+import com.werek.stockhawk.data.PrefUtils;
+import com.werek.stockhawk.util.StockUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ import yahoofinance.quotes.stock.StockQuote;
 public final class QuoteSyncJob {
 
     private static final int ONE_OFF_ID = 2;
-    private static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
+    private static final String ACTION_DATA_UPDATED = "com.werek.stockhawk.ACTION_DATA_UPDATED";
     private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
@@ -112,6 +113,9 @@ public final class QuoteSyncJob {
 
             Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
             context.sendBroadcast(dataUpdatedIntent);
+
+            // notifying widgets
+            StockUtil.notifyWidgets(context);
 
         } catch (IOException exception) {
             Timber.e(exception, "Error fetching stock quotes");

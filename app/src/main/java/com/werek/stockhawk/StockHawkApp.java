@@ -1,4 +1,4 @@
-package com.udacity.stockhawk;
+package com.werek.stockhawk;
 
 import android.app.Application;
 
