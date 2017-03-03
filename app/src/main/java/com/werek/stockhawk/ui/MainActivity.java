@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+    @SuppressWarnings("WeakerAccess")
+    @BindView(R.id.hidden_layout)
+    LinearLayout hiddenLayout;
 
     @Override
     public void onClick(String symbol) {
@@ -95,8 +99,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onRefresh() {
-
         QuoteSyncJob.syncImmediately(this);
+
+        if (adapter.getItemCount() == 0 && PrefUtils.getStocks(this).size() > 0) {
+            hiddenLayout.setVisibility(View.VISIBLE);
+            stockRecyclerView.setVisibility(View.GONE);
+        }
 
         if (!networkUp() && adapter.getItemCount() == 0) {
             swipeRefreshLayout.setRefreshing(false);
@@ -144,9 +152,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         swipeRefreshLayout.setRefreshing(false);
-
         if (data.getCount() != 0) {
             error.setVisibility(View.GONE);
+            hiddenLayout.setVisibility(View.GONE);
+            stockRecyclerView.setVisibility(View.VISIBLE);
         }
         adapter.setCursor(data);
     }

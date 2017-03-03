@@ -34,5 +34,6 @@
     <string name="widget_name">Stock Quotes</string>
     <string name="widget_data_empty">There\'s no Stock Quotes</string>
     <string name="widget_refresh">Refresh</string>
+    <string name="default_loading_text">Loading Stock Quotes, please wait...</string>
 
 </resources>
