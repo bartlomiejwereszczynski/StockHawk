@@ -1,6 +1,7 @@
 package com.werek.stockhawk.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -29,7 +30,6 @@ import com.werek.stockhawk.util.StockUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,
         SwipeRefreshLayout.OnRefreshListener,
@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onClick(String symbol) {
-        Timber.d("Symbol clicked: %s", symbol);
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.STOCK_SYMBOL,symbol);
+        startActivity(intent);
     }
 
     @Override
