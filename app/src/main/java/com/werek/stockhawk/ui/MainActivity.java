@@ -24,6 +24,7 @@ import com.werek.stockhawk.R;
 import com.werek.stockhawk.data.Contract;
 import com.werek.stockhawk.data.PrefUtils;
 import com.werek.stockhawk.sync.QuoteSyncJob;
+import com.werek.stockhawk.util.StockQuoteExistsCheck;
 import com.werek.stockhawk.util.StockUtil;
 
 import butterknife.BindView;
@@ -126,18 +127,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
     }
 
-    void addStock(String symbol) {
+    void addStock(final String symbol) {
         if (symbol != null && !symbol.isEmpty()) {
+
+            if (PrefUtils.getStocks(this).contains(symbol)) {
+                Toast.makeText(this, getString(R.string.error_duplicate_stock, symbol), Toast.LENGTH_LONG).show();
+                return;
+            }
 
             if (networkUp()) {
                 swipeRefreshLayout.setRefreshing(true);
+                new StockQuoteExistsCheck(new StockQuoteExistsCheck.Result() {
+                    @Override
+                    public void onResult(boolean exists) {
+                        String message;
+                        if (exists) {
+                            PrefUtils.addStock(MainActivity.this, symbol);
+                            QuoteSyncJob.syncImmediately(MainActivity.this);
+                            message = getString(R.string.toast_stock_added, symbol);
+                        } else {
+                            message = getString(R.string.toast_stock_doesnt_exists, symbol);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                    }
+                }).execute(symbol);
             } else {
-                String message = getString(R.string.toast_stock_added_no_connectivity, symbol);
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getString(R.string.toast_stock_check_no_connectivity, symbol), Toast.LENGTH_LONG).show();
             }
-
-            PrefUtils.addStock(this, symbol);
-            QuoteSyncJob.syncImmediately(this);
         }
     }
 
