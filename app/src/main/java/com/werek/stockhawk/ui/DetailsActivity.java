@@ -2,6 +2,7 @@ package com.werek.stockhawk.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
@@ -12,6 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.werek.stockhawk.BuildConfig;
 import com.werek.stockhawk.R;
 import com.werek.stockhawk.data.Contract;
@@ -19,13 +26,20 @@ import com.werek.stockhawk.data.PrefUtils;
 import com.werek.stockhawk.util.StockUtil;
 
 import java.security.InvalidParameterException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    public static final String TAG = DetailsActivity.class.getName();
     public static final String STOCK_SYMBOL = BuildConfig.APPLICATION_ID + ".stockSymbol";
 
     @BindView(R.id.symbol)
@@ -36,6 +50,9 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
     @BindView(R.id.change)
     TextView change;
+
+    @BindView(R.id.chart)
+    LineChart chart;
 
     @BindBool(R.bool.rtl)
     boolean useRtl;
@@ -89,6 +106,44 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         } else {
             change.setText(percentage);
         }
+
+        loadHistory(cursor.getString(Contract.Quote.POSITION_HISTORY));
+    }
+
+    void loadHistory(String history) {
+        String[] datedStocks;
+        List<Entry> entries = new ArrayList<>();
+
+        // reverse order
+        List<String> rev = Arrays.asList(history.split("\n"));
+
+        Collections.reverse(rev);
+        datedStocks = rev.toArray(new String[]{});
+
+        for (String datedStock : datedStocks) {
+            String[] stockData = datedStock.split(",");
+
+            // 0 - time, 1 - price
+            entries.add(new Entry(Float.parseFloat(stockData[0].trim()), Float.parseFloat(stockData[1].trim())));
+        }
+
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.label_stock_prices));
+        chart.setData(new LineData(dataSet));
+        chart.getXAxis().setTextColor(Color.WHITE);
+        chart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                Long date = (long) value;
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(date);
+                return (new SimpleDateFormat(getString(R.string.util_date_format), Locale.getDefault())).format(cal.getTime());
+            }
+        });
+        chart.getAxisLeft().setTextColor(Color.WHITE);
+        chart.getAxisRight().setTextColor(Color.WHITE);
+        chart.getLegend().setTextColor(Color.WHITE);
+        chart.getDescription().setEnabled(false);
+        chart.invalidate();
     }
 
     @Override

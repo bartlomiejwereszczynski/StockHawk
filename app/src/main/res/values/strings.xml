@@ -39,5 +39,7 @@
     <string name="toast_stock_added">Symbol %1$s added!</string>
     <string name="toast_stock_doesnt_exists">Symbol %1$s doesn\'t exists.</string>
     <string name="toast_stock_check_no_connectivity">Could not verify Stock %1$s existence, due to lack of network connection.</string>
+    <string name="util_date_format">yyyy-MM-dd</string>
+    <string name="label_stock_prices">Stock prices</string>
 
 </resources>
