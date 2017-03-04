@@ -34,7 +34,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import butterknife.BindBool;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -53,9 +52,6 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
 
     @BindView(R.id.chart)
     LineChart chart;
-
-    @BindBool(R.bool.rtl)
-    boolean useRtl;
 
     String symbolName;
 
