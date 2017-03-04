@@ -63,10 +63,17 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
     @Override
     public void onBindViewHolder(StockViewHolder holder, int position) {
         cursor.moveToPosition(position);
-
+        Context context = holder.symbol.getContext();
 
         holder.symbol.setText(cursor.getString(Contract.Quote.POSITION_SYMBOL));
         holder.price.setText(dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
+        holder.price.setContentDescription(
+                context.getString(
+                        R.string.desc_price,
+                        cursor.getString(Contract.Quote.POSITION_SYMBOL),
+                        dollarFormat.format(cursor.getFloat(Contract.Quote.POSITION_PRICE))
+                )
+        );
 
 
         float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
@@ -126,9 +133,6 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
             cursor.moveToPosition(adapterPosition);
             int symbolColumn = cursor.getColumnIndex(Contract.Quote.COLUMN_SYMBOL);
             clickHandler.onClick(cursor.getString(symbolColumn));
-
         }
-
-
     }
 }

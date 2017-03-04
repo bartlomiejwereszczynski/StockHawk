@@ -82,7 +82,13 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         symbol.setText(cursor.getString(Contract.Quote.POSITION_SYMBOL));
         setTitle(cursor.getString(Contract.Quote.POSITION_SYMBOL));
         price.setText(StockUtil.dollarFormat(cursor.getFloat(Contract.Quote.POSITION_PRICE)));
-
+        price.setContentDescription(
+                getString(
+                        R.string.desc_price,
+                        cursor.getString(Contract.Quote.POSITION_SYMBOL),
+                        StockUtil.dollarFormat(cursor.getFloat(Contract.Quote.POSITION_PRICE))
+                )
+        );
 
         float rawAbsoluteChange = cursor.getFloat(Contract.Quote.POSITION_ABSOLUTE_CHANGE);
         float percentageChange = cursor.getFloat(Contract.Quote.POSITION_PERCENTAGE_CHANGE);
@@ -104,6 +110,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         }
 
         loadHistory(cursor.getString(Contract.Quote.POSITION_HISTORY));
+
     }
 
     void loadHistory(String history) {
@@ -140,6 +147,7 @@ public class DetailsActivity extends AppCompatActivity implements LoaderManager.
         chart.getLegend().setTextColor(Color.WHITE);
         chart.getDescription().setEnabled(false);
         chart.invalidate();
+        chart.setContentDescription(getString(R.string.desc_chart, symbolName));
     }
 
     @Override

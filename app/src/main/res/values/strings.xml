@@ -41,5 +41,8 @@
     <string name="toast_stock_check_no_connectivity">Could not verify Stock %1$s existence, due to lack of network connection.</string>
     <string name="util_date_format">yyyy-MM-dd</string>
     <string name="label_stock_prices">Stock prices</string>
+    <string name="desc_chart">%1$s price changes in time</string>
+    <string name="desc_price">Current price for %1$s is %2$s</string>
+    <string name="desc_add_stock">Add new stock quote name</string>
 
 </resources>
